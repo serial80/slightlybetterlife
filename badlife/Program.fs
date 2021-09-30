@@ -1,8 +1,9 @@
-﻿// Implements Conway's Game Of Life badly
+// Implements Conway's Game Of Life badly
 // https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life on a torus
 
 open System
- 
+
+// returns the number of live neighbours the cell at (row,col) has has in world
 let countNeighbours (world : bool list list) row col =
     let rows = world.Length
     let cols = world.[0].Length
@@ -19,10 +20,11 @@ let countNeighbours (world : bool list list) row col =
     if (world.[if row + 1 = rows then 0 else row + 1].[col]) then neighbours <- neighbours+1
     if (world.[if row + 1 = rows then 0 else row + 1].[if col + 1 = cols then 0 else col + 1]) then neighbours <- neighbours+1
     
-    printfn "%i,%i neighbours=%i" row col neighbours // to check if the above is working - it appears to be
+    printfn "%i,%i neighbours=%i" row col neighbours // to check if the above is working
     
     neighbours
-    
+
+// determines the state of a cell in the next phase given its current state and number of neighbours
 let evolveCell alive neighbours =
     if (alive && neighbours < 2) then false
     else if (alive && neighbours = 2 || neighbours = 3) then true
@@ -30,6 +32,7 @@ let evolveCell alive neighbours =
     else if (not alive && neighbours = 3) then true 
     else false
 
+// generates the next phase of a world
 let evolve (world : bool list list) : bool array array = 
     let newWorld : bool array array = Array.zeroCreate world.Length
     for row in [0 .. world.Length-1] do
@@ -55,7 +58,7 @@ let main argv =
     use reader = new System.IO.StreamReader("sample_input.txt")
     let inputText = reader.ReadToEnd()
 
-    let world = mapAllInputToWorld inputText // use functional paradigm 
+    let world = mapAllInputToWorld inputText 
 
     let newWorld = evolve world
 
