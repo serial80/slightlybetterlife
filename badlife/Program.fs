@@ -1,4 +1,4 @@
-// Implements Conway's Game Of Life badly
+// Implements Conway's Game Of Life slightly better than before
 // https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life on a torus
 
 open System
