@@ -3,7 +3,7 @@
 
 open System
 
-// returns the number of live neighbours the cell at (row,col) has has in world
+// returns the number of live neighbours the cell at (row,col) has in world
 let countNeighbours (world : bool list list) row col =
     let rows = world.Length
     let cols = world.[0].Length
